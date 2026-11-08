@@ -781,7 +781,7 @@ function iniciarChatWhatsapp() {
     evento.preventDefault();
     const texto = campo.value.trim();
     if (!texto) { campo.focus(); return; }
-    window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+    window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener,noreferrer');
     cerrarChat();
   });
 }
