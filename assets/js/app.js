@@ -705,6 +705,8 @@ function iniciarChatWhatsapp() {
   const panel = document.createElement('div');
   panel.className = 'whatsapp-chat';
   panel.setAttribute('data-abierto', 'false');
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', 'Chat de WhatsApp');
   panel.innerHTML = `
     <div class="whatsapp-chat__cabecera">
       <span class="whatsapp-chat__avatar" aria-hidden="true">
