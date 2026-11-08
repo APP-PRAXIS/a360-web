@@ -1402,12 +1402,15 @@ body.asesoria main > section.servicios-hero:first-child {
   margin-inline: auto;
 }
 @media (min-width: 860px) { .split-asimetrico__foto { max-width: none; margin-inline: 0; } }
+/* El halo solo se extiende en vertical: en horizontal su degradado ya es
+   transparente dentro del ancho de la foto, y salirse de él ensanchaba la
+   página en móvil. La elipse (66% × 50%) reproduce la de antes. */
 .split-asimetrico__foto::before {
   content: '';
   position: absolute;
-  inset: -16%;
+  inset: -16% 0;
   z-index: -1;
-  background: radial-gradient(ellipse closest-side, rgba(var(--azul-acero-rgb), .3), transparent 72%);
+  background: radial-gradient(ellipse 66% 50%, rgba(var(--azul-acero-rgb), .3), transparent 72%);
 }
 .split-asimetrico__marco {
   display: block;
@@ -1436,7 +1439,7 @@ body.asesoria main > section.servicios-hero:first-child {
   border-radius: inherit;
 }
 #donde-estamos .split-asimetrico__foto::before {
-  background: radial-gradient(ellipse closest-side, rgba(var(--azul-acero-rgb), .18), transparent 72%);
+  background: radial-gradient(ellipse 66% 50%, rgba(var(--azul-acero-rgb), .18), transparent 72%);
 }
 #donde-estamos .split-asimetrico__marco { transform: rotate(1.4deg); }
 #donde-estamos .split-asimetrico__marco::before { transform: rotate(4.6deg); }
