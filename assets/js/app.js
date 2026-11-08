@@ -334,6 +334,7 @@ function iniciarFormulario() {
     const contenedor = campo.closest('.campo, .campo-consentimiento');
     if (!contenedor) return;
     contenedor.classList.add('con-error');
+    campo.setAttribute('aria-invalid', 'true');
     const error = contenedor.querySelector('.campo__error');
     if (error) error.textContent = mensaje;
   };
@@ -342,6 +343,7 @@ function iniciarFormulario() {
     const contenedor = campo.closest('.campo, .campo-consentimiento');
     if (!contenedor) return;
     contenedor.classList.remove('con-error');
+    campo.removeAttribute('aria-invalid');
   };
 
   const validarCampo = (campo) => {
@@ -349,12 +351,26 @@ function iniciarFormulario() {
       limpiarError(campo);
       return true;
     }
+    if (campo.type === 'checkbox') {
+      mostrarError(campo, 'Para enviar la consulta tienes que aceptar la política de privacidad.');
+      return false;
+    }
     const tipo = Object.keys(mensajesError).find((clave) => campo.validity[clave]);
     mostrarError(campo, mensajesError[tipo] || 'Revisa este campo.');
     return false;
   };
 
-  formulario.querySelectorAll('input, select, textarea').forEach((campo) => {
+  const campos = Array.from(formulario.querySelectorAll('input, select, textarea'))
+    .filter((c) => c.type !== 'hidden' && c.name !== 'trampa');
+
+  /* Cada campo queda enlazado a su mensaje de error para los lectores de pantalla */
+  campos.forEach((campo) => {
+    const contenedor = campo.closest('.campo, .campo-consentimiento');
+    const error = contenedor && contenedor.querySelector('.campo__error');
+    if (error && campo.id) {
+      error.id = `${campo.id}-error`;
+      campo.setAttribute('aria-describedby', error.id);
+    }
     campo.addEventListener('blur', () => validarCampo(campo));
   });
 
@@ -365,14 +381,18 @@ function iniciarFormulario() {
     estado.textContent = mensaje;
   };
 
+  const ocultarEstado = () => {
+    if (!estado) return;
+    estado.setAttribute('data-visible', 'false');
+    estado.textContent = '';
+  };
+
   formulario.addEventListener('submit', async (evento) => {
     evento.preventDefault();
 
     const trampa = formulario.querySelector('[data-trampa]');
     if (trampa && trampa.value) return;
 
-    const campos = Array.from(formulario.querySelectorAll('input, select, textarea'))
-      .filter((c) => c.name !== 'trampa');
     const valido = campos.map(validarCampo).every(Boolean);
     if (!valido) {
       mostrarEstado('error', 'Revisa los campos marcados antes de enviar.');
@@ -380,7 +400,12 @@ function iniciarFormulario() {
     }
 
     const boton = formulario.querySelector('button[type="submit"]');
-    if (boton) boton.disabled = true;
+    const textoBoton = boton ? boton.textContent : '';
+    if (boton) {
+      boton.disabled = true;
+      boton.textContent = 'Enviando…';
+    }
+    ocultarEstado();
 
     try {
       const datos = new FormData(formulario);
@@ -391,9 +416,11 @@ function iniciarFormulario() {
         headers: { Accept: 'application/json' },
         body: datos,
       });
-      const resultado = await respuesta.json();
+      /* Un 4xx/5xx puede llegar como HTML: solo se lee como JSON si lo es */
+      const esJson = (respuesta.headers.get('content-type') || '').includes('application/json');
+      const resultado = esJson ? await respuesta.json() : null;
 
-      if (resultado.success) {
+      if (respuesta.ok && resultado && resultado.success) {
         mostrarEstado('exito', 'Gracias, hemos recibido tu mensaje. Te responderemos por correo lo antes posible.');
         formulario.reset();
       } else {
@@ -402,7 +429,10 @@ function iniciarFormulario() {
     } catch (error) {
       mostrarEstado('error', 'No hay conexión con el servidor de envío. Escríbenos directamente a info@asesores360.com.');
     } finally {
-      if (boton) boton.disabled = false;
+      if (boton) {
+        boton.disabled = false;
+        boton.textContent = textoBoton;
+      }
     }
   });
 }

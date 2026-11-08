@@ -764,10 +764,14 @@ p {
 
 .campo-consentimiento {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 10px;
   margin-bottom: var(--e-3);
 }
+.campo-consentimiento label { flex: 1; }
+.campo-consentimiento .campo__error { flex-basis: 100%; }
+.campo-consentimiento.con-error .campo__error { display: block; }
 .campo-consentimiento input { margin-top: 4px; }
 .campo-consentimiento label { font-size: var(--menor); }
 
