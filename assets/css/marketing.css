@@ -500,7 +500,7 @@ body.marketing .marketing-hero {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: url('/assets/img/fondo-marca-mk.png');
+  background-image: url('/a360-web/assets/img/fondo-marca-mk.png');
   background-size: cover;
   background-position: center;
 

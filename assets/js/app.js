@@ -417,6 +417,15 @@ function iniciarFormulario() {
       const datos = new FormData(formulario);
       datos.append('access_key', FORM_KEY);
 
+      /* ENTORNO DE PRUEBAS (solo rama preview): fuera del dominio de
+         producción el formulario no envía nada a Web3Forms */
+      if (window.location.hostname !== 'www.asesores360.com') {
+        await new Promise((r) => setTimeout(r, 800));
+        mostrarEstado('exito', 'MODO PRUEBA: el formulario es válido, pero en este entorno no se envía a ningún correo.');
+        formulario.reset();
+        return;
+      }
+
       const respuesta = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { Accept: 'application/json' },
@@ -791,31 +800,31 @@ function iniciarChatWhatsapp() {
    a mano si se añade o cambia una página. */
 const INDICE_BUSQUEDA = [
   // Asesoría
-  { sitio: 'asesoria', titulo: 'Inicio', ruta: '/asesoria/', palabras: 'inicio asesoria fiscal contable laboral societaria un despacho cuatro especialidades' },
-  { sitio: 'asesoria', titulo: 'Todos los servicios', ruta: '/asesoria/servicios.html', palabras: 'servicios asesoria' },
-  { sitio: 'asesoria', titulo: 'Asesoría fiscal', ruta: '/asesoria/servicios.html#fiscal', palabras: 'fiscal impuestos iva irpf modelo 130 303 declaracion renta sociedades hacienda' },
-  { sitio: 'asesoria', titulo: 'Gestión contable', ruta: '/asesoria/servicios.html#contable', palabras: 'contable contabilidad libros oficiales cuentas anuales' },
-  { sitio: 'asesoria', titulo: 'Constitución de sociedades', ruta: '/asesoria/servicios.html#societaria', palabras: 'societaria constituir sociedad alta autonomos sl' },
-  { sitio: 'asesoria', titulo: 'Asesoría laboral', ruta: '/asesoria/servicios.html#laboral', palabras: 'laboral nominas contratos seguros sociales' },
-  { sitio: 'asesoria', titulo: 'Calendario fiscal', ruta: '/asesoria/servicios.html#calendario-fiscal', palabras: 'calendario fiscal plazos trimestral fechas' },
-  { sitio: 'asesoria', titulo: 'Quiénes somos', ruta: '/asesoria/nosotros.html', palabras: 'quienes somos nosotros' },
-  { sitio: 'asesoria', titulo: 'Nuestro equipo', ruta: '/asesoria/nosotros.html#equipo', palabras: 'equipo trato directo sin intermediarios' },
-  { sitio: 'asesoria', titulo: 'Nuestros valores', ruta: '/asesoria/nosotros.html#valores', palabras: 'valores mision vision' },
-  { sitio: 'asesoria', titulo: 'Dónde estamos', ruta: '/asesoria/nosotros.html#donde-estamos', palabras: 'donde estamos ubicacion direccion oficina mapa santa eulalia' },
-  { sitio: 'asesoria', titulo: 'Contacto', ruta: '/asesoria/contacto.html', palabras: 'contacto whatsapp telefono formulario horario' },
+  { sitio: 'asesoria', titulo: 'Inicio', ruta: '/a360-web/asesoria/', palabras: 'inicio asesoria fiscal contable laboral societaria un despacho cuatro especialidades' },
+  { sitio: 'asesoria', titulo: 'Todos los servicios', ruta: '/a360-web/asesoria/servicios.html', palabras: 'servicios asesoria' },
+  { sitio: 'asesoria', titulo: 'Asesoría fiscal', ruta: '/a360-web/asesoria/servicios.html#fiscal', palabras: 'fiscal impuestos iva irpf modelo 130 303 declaracion renta sociedades hacienda' },
+  { sitio: 'asesoria', titulo: 'Gestión contable', ruta: '/a360-web/asesoria/servicios.html#contable', palabras: 'contable contabilidad libros oficiales cuentas anuales' },
+  { sitio: 'asesoria', titulo: 'Constitución de sociedades', ruta: '/a360-web/asesoria/servicios.html#societaria', palabras: 'societaria constituir sociedad alta autonomos sl' },
+  { sitio: 'asesoria', titulo: 'Asesoría laboral', ruta: '/a360-web/asesoria/servicios.html#laboral', palabras: 'laboral nominas contratos seguros sociales' },
+  { sitio: 'asesoria', titulo: 'Calendario fiscal', ruta: '/a360-web/asesoria/servicios.html#calendario-fiscal', palabras: 'calendario fiscal plazos trimestral fechas' },
+  { sitio: 'asesoria', titulo: 'Quiénes somos', ruta: '/a360-web/asesoria/nosotros.html', palabras: 'quienes somos nosotros' },
+  { sitio: 'asesoria', titulo: 'Nuestro equipo', ruta: '/a360-web/asesoria/nosotros.html#equipo', palabras: 'equipo trato directo sin intermediarios' },
+  { sitio: 'asesoria', titulo: 'Nuestros valores', ruta: '/a360-web/asesoria/nosotros.html#valores', palabras: 'valores mision vision' },
+  { sitio: 'asesoria', titulo: 'Dónde estamos', ruta: '/a360-web/asesoria/nosotros.html#donde-estamos', palabras: 'donde estamos ubicacion direccion oficina mapa santa eulalia' },
+  { sitio: 'asesoria', titulo: 'Contacto', ruta: '/a360-web/asesoria/contacto.html', palabras: 'contacto whatsapp telefono formulario horario' },
   // Marketing
-  { sitio: 'marketing', titulo: 'Inicio', ruta: '/marketing/', palabras: 'inicio marketing branding redes publicidad estrategia web' },
-  { sitio: 'marketing', titulo: 'Todos los servicios', ruta: '/marketing/servicios.html', palabras: 'servicios marketing' },
-  { sitio: 'marketing', titulo: 'Branding e identidad visual', ruta: '/marketing/servicios.html#servicio-01', palabras: 'branding identidad visual logo marca' },
-  { sitio: 'marketing', titulo: 'Gestión de redes sociales', ruta: '/marketing/servicios.html#servicio-02', palabras: 'redes sociales instagram contenido community manager' },
-  { sitio: 'marketing', titulo: 'Publicidad, Meta Ads y Google Ads', ruta: '/marketing/servicios.html#servicio-03', palabras: 'publicidad ads meta google anuncios campañas' },
-  { sitio: 'marketing', titulo: 'Estrategia de marketing digital', ruta: '/marketing/servicios.html#servicio-04', palabras: 'estrategia marketing digital plan' },
-  { sitio: 'marketing', titulo: 'Diseño y desarrollo web', ruta: '/marketing/servicios.html#servicio-05', palabras: 'diseño desarrollo web pagina sitio' },
-  { sitio: 'marketing', titulo: 'Quiénes somos', ruta: '/marketing/nosotros.html', palabras: 'quienes somos nosotros' },
-  { sitio: 'marketing', titulo: 'Misión y visión', ruta: '/marketing/nosotros.html#mision-vision', palabras: 'mision vision' },
-  { sitio: 'marketing', titulo: 'Valores', ruta: '/marketing/nosotros.html#valores', palabras: 'valores' },
-  { sitio: 'marketing', titulo: 'Dónde trabajamos', ruta: '/marketing/nosotros.html#donde-trabajamos', palabras: 'donde trabajamos oficina ubicacion santa eulalia' },
-  { sitio: 'marketing', titulo: 'Contacto', ruta: '/marketing/contacto.html', palabras: 'contacto whatsapp formulario' },
+  { sitio: 'marketing', titulo: 'Inicio', ruta: '/a360-web/marketing/', palabras: 'inicio marketing branding redes publicidad estrategia web' },
+  { sitio: 'marketing', titulo: 'Todos los servicios', ruta: '/a360-web/marketing/servicios.html', palabras: 'servicios marketing' },
+  { sitio: 'marketing', titulo: 'Branding e identidad visual', ruta: '/a360-web/marketing/servicios.html#servicio-01', palabras: 'branding identidad visual logo marca' },
+  { sitio: 'marketing', titulo: 'Gestión de redes sociales', ruta: '/a360-web/marketing/servicios.html#servicio-02', palabras: 'redes sociales instagram contenido community manager' },
+  { sitio: 'marketing', titulo: 'Publicidad, Meta Ads y Google Ads', ruta: '/a360-web/marketing/servicios.html#servicio-03', palabras: 'publicidad ads meta google anuncios campañas' },
+  { sitio: 'marketing', titulo: 'Estrategia de marketing digital', ruta: '/a360-web/marketing/servicios.html#servicio-04', palabras: 'estrategia marketing digital plan' },
+  { sitio: 'marketing', titulo: 'Diseño y desarrollo web', ruta: '/a360-web/marketing/servicios.html#servicio-05', palabras: 'diseño desarrollo web pagina sitio' },
+  { sitio: 'marketing', titulo: 'Quiénes somos', ruta: '/a360-web/marketing/nosotros.html', palabras: 'quienes somos nosotros' },
+  { sitio: 'marketing', titulo: 'Misión y visión', ruta: '/a360-web/marketing/nosotros.html#mision-vision', palabras: 'mision vision' },
+  { sitio: 'marketing', titulo: 'Valores', ruta: '/a360-web/marketing/nosotros.html#valores', palabras: 'valores' },
+  { sitio: 'marketing', titulo: 'Dónde trabajamos', ruta: '/a360-web/marketing/nosotros.html#donde-trabajamos', palabras: 'donde trabajamos oficina ubicacion santa eulalia' },
+  { sitio: 'marketing', titulo: 'Contacto', ruta: '/a360-web/marketing/contacto.html', palabras: 'contacto whatsapp formulario' },
 ];
 
 /* Quita tildes (reemplazo letra a letra, no NFD, para que el índice de
