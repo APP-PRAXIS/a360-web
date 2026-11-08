@@ -952,7 +952,9 @@ function iniciarBusqueda() {
       if (actuales.length) marcarActivo((indiceActivo - 1 + actuales.length) % actuales.length);
       return;
     }
-    if (evento.key === 'Enter') {
+    /* Enter solo navega desde el campo de búsqueda: en el botón Cerrar
+       (o en cualquier otro control) debe hacer su acción normal */
+    if (evento.key === 'Enter' && evento.target === input) {
       evento.preventDefault();
       const opciones = lista.querySelectorAll('.busqueda-panel__resultado');
       navegarAOpcion(opciones[indiceActivo] || opciones[0]);
