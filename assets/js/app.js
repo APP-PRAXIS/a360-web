@@ -467,6 +467,8 @@ function iniciarHeroScrubMarketing() {
   const heroSeccion = document.querySelector('.marketing-hero, .asesoria-hero');
   if (!logo || !heroSeccion) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  /* Sin ratón no hay nada que seguir: en táctiles no se arranca el bucle */
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
   const LIMITE_PX = 46;
   let objetivoX = 0;
@@ -475,28 +477,32 @@ function iniciarHeroScrubMarketing() {
   let actualY = 0;
   let idFotograma = null;
 
+  /* El bucle solo corre mientras el logo se está moviendo hacia el cursor */
+  const avanzar = () => {
+    actualX += (objetivoX - actualX) * 0.06;
+    actualY += (objetivoY - actualY) * 0.06;
+    logo.style.translate = `${actualX.toFixed(1)}px ${actualY.toFixed(1)}px`;
+    if (Math.abs(objetivoX - actualX) > 0.1 || Math.abs(objetivoY - actualY) > 0.1) {
+      idFotograma = window.requestAnimationFrame(avanzar);
+    } else {
+      idFotograma = null;
+    }
+  };
+
   const alMoverRaton = (evento) => {
     const relX = evento.clientX / window.innerWidth - 0.5;
     const relY = evento.clientY / window.innerHeight - 0.5;
     objetivoX = relX * 2 * LIMITE_PX;
     objetivoY = relY * 2 * LIMITE_PX;
-  };
-
-  const avanzar = () => {
-    actualX += (objetivoX - actualX) * 0.06;
-    actualY += (objetivoY - actualY) * 0.06;
-    logo.style.translate = `${actualX.toFixed(1)}px ${actualY.toFixed(1)}px`;
-    idFotograma = window.requestAnimationFrame(avanzar);
+    if (idFotograma === null) idFotograma = window.requestAnimationFrame(avanzar);
   };
 
   const observador = new IntersectionObserver((entradas) => {
-    const visible = entradas[0].isIntersecting;
-    if (visible && idFotograma === null) {
+    if (entradas[0].isIntersecting) {
       document.addEventListener('mousemove', alMoverRaton, { passive: true });
-      idFotograma = window.requestAnimationFrame(avanzar);
-    } else if (!visible && idFotograma !== null) {
+    } else {
       document.removeEventListener('mousemove', alMoverRaton);
-      window.cancelAnimationFrame(idFotograma);
+      if (idFotograma !== null) window.cancelAnimationFrame(idFotograma);
       idFotograma = null;
     }
   });
