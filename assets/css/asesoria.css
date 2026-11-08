@@ -927,7 +927,7 @@ body.asesoria .nav-flotante--oscura .desplegable__panel a:focus-visible {
   aspect-ratio: 16 / 9;
   width: 100%;
 }
-.contacto-mapa__marco iframe { display: block; }
+.contacto-mapa__marco iframe { display: block; width: 100%; height: 100%; border: 0; }
 
 /* Sistema visual (tokens de color, sombra y tipografía) */
 body.asesoria {

@@ -801,6 +801,25 @@ p {
 .formulario__estado[data-tipo="exito"] { background: rgba(27, 160, 116, .12); color: var(--verde-mar); }
 .formulario__estado[data-tipo="error"] { background: var(--lavado-naranja); color: var(--vino-hondo); }
 
+/* Contacto: aviso previo a cargar el mapa de Google (ocupa el mismo hueco
+   16:9 que ocupará el mapa) */
+/* Sin overflow:hidden el 16:9 se estira si el aviso no cabe (móvil estrecho) */
+.contacto-mapa__marco:has(> .contacto-mapa__aviso) { overflow: visible; }
+.contacto-mapa__aviso {
+  box-sizing: border-box;
+  min-height: 100%;
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-2);
+  padding: var(--e-3);
+  text-align: center;
+  background: var(--gris-claro);
+}
+.contacto-mapa__aviso p { max-width: 46ch; font-size: var(--menor); }
+
 .campo-trampa {
   position: absolute;
   left: -9999px;

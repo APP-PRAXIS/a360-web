@@ -1545,7 +1545,7 @@ body.marketing main > section.mk-valores-seccion .mk-valores {
   aspect-ratio: 16 / 9;
   width: 100%;
 }
-.contacto-mapa__marco iframe { display: block; }
+.contacto-mapa__marco iframe { display: block; width: 100%; height: 100%; border: 0; }
 
 body.marketing .campo input,
 body.marketing .campo select,

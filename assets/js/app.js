@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarSombraTarjetas();
   iniciarChatWhatsapp();
   iniciarBusqueda();
+  iniciarMapa();
   /* Si app.js no llega o falla al arrancar, el <head> quita la clase .js en
      el evento load y el contenido se muestra sin animaciones */
   window.A360_LISTO = true;
@@ -439,6 +440,24 @@ function iniciarFormulario() {
         boton.textContent = textoBoton;
       }
     }
+  });
+}
+
+/* Contacto: el mapa de Google solo se carga cuando el usuario lo pide, para
+   no enviar datos a Google sin su acción */
+function iniciarMapa() {
+  document.querySelectorAll('[data-mapa-src]').forEach((marco) => {
+    const boton = marco.querySelector('[data-mapa-cargar]');
+    if (!boton) return;
+    boton.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = marco.getAttribute('data-mapa-src');
+      iframe.title = marco.getAttribute('data-mapa-titulo') || 'Mapa';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.setAttribute('allowfullscreen', '');
+      marco.replaceChildren(iframe);
+      iframe.focus();
+    });
   });
 }
 
