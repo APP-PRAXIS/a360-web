@@ -1200,16 +1200,10 @@ body.asesoria .pie__redes a { border-radius: 10px; }
 body.asesoria .cierre-pie { background: linear-gradient(135deg, #000000, var(--azul-hondo)); }
 body.asesoria .cierre-pie footer.pie { background: none; }
 
-/* Cierre + pie: ocupan toda la pantalla al llegar al final, como en marketing.
-   Solo aplica a las páginas que sí llevan el bloque .cierre-asesoria antes
-   del footer (Inicio, Nosotros, Servicios) — Contacto usa un footer simple,
-   igual que en marketing, sin este efecto. */
-body.asesoria .cierre-pie {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+/* Cierre + pie: miden lo que su contenido, como el pie de marketing. Antes
+   se forzaban a 100dvh con space-between y en pantallas altas (tablet en
+   vertical, monitores grandes) quedaba un hueco vacío de hasta ~480 px
+   entre el cierre y el footer. */
 body.asesoria .cierre-pie.reveal {
   border-radius: 0 0 0 0;
   transition: opacity var(--dur-reveal) var(--curva-reveal),
