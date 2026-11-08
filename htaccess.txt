@@ -7,6 +7,9 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} !^www\.asesores360\.com$ [NC]
 RewriteRule ^(.*)$ https://www.asesores360.com/$1 [L,R=301,NE]
+# /index.html y /carpeta/index.html redirigen a la URL canónica con barra
+RewriteCond %{THE_REQUEST} \s/((?:[^\s?]*/)?)index\.html[\s?]
+RewriteRule ^ https://www.asesores360.com/%1 [L,R=301,NE]
 RewriteCond %{REQUEST_URI} !^/\.well-known/
 RewriteRule (^|/)\. - [F,L]
 RewriteRule \.(md|py|log|sql|zip)$ - [F,L]
@@ -18,6 +21,11 @@ RewriteRule ^(feed|comments/feed|author|category|tag)(/.*)?$ - [G,L]
 Header always set X-Content-Type-Options "nosniff"
 Header always set X-Frame-Options "SAMEORIGIN"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Strict-Transport-Security "max-age=31536000"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+# CSP: el hash es el del único script inline (clase .js en el <head>). Si se
+# cambia ese script hay que recalcularlo: echo -n '<código>' | openssl dgst -sha256 -binary | base64
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-QBFJKtFr2nsUM9h6MSFXrosomjDRFYHDjUF7IfsT+uI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; frame-src https://www.google.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests"
 </IfModule>
 <IfModule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml text/plain application/xml
