@@ -492,6 +492,10 @@ body.marketing .marketing-hero {
   padding-block-end: var(--e-4);
 
   overflow: hidden;
+  /* Contexto de apilamiento propio: sin él, en móvil/tablet (sección
+     relative, no sticky) el ::before con z-index:-1 quedaba detrás del
+     degradado del hero y el patrón de marca no se veía */
+  isolation: isolate;
 }
 @media (min-width: 1024px) { .marketing-hero { padding-inline: var(--canal-escritorio); } }
 
