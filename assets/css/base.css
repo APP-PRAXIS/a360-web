@@ -303,7 +303,9 @@ p {
 .banda-blanca { background: var(--blanco); }
 
 /* Animación de entrada al hacer scroll */
-.reveal {
+/* Solo se oculta si hay JS (clase .js puesta en el <head>): sin JS, o si
+   app.js no llega a cargar, el contenido queda visible */
+.js .reveal {
   opacity: 0;
   transform: translateY(20px);
 }
@@ -318,8 +320,12 @@ p {
   to { opacity: 1; transform: translateY(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; }
+  .js .reveal { opacity: 1; transform: none; }
 }
+
+/* El subtítulo "máquina de escribir" trae su texto en el HTML; con JS se
+   oculta hasta que empieza a escribirse para que no parpadee */
+.js [data-texto-maquina]:not([data-maquina-lista]) { visibility: hidden; }
 
 /* Botones */
 .boton {

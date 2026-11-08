@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarSombraTarjetas();
   iniciarChatWhatsapp();
   iniciarBusqueda();
+  /* Si app.js no llega o falla al arrancar, el <head> quita la clase .js en
+     el evento load y el contenido se muestra sin animaciones */
+  window.A360_LISTO = true;
 });
 
 /* Nav: encoge la cabecera al hacer scroll */
@@ -186,7 +189,9 @@ function iniciarReveals() {
   const observador = new IntersectionObserver(
     (entradas, obs) => {
       entradas.forEach((entrada) => {
-        if (entrada.isIntersecting) {
+        /* También los que ya quedaron por encima (scroll rápido o salto a
+           un ancla), que si no seguirían invisibles al volver atrás */
+        if (entrada.isIntersecting || entrada.boundingClientRect.bottom < 0) {
           entrada.target.classList.add('en-vista');
           obs.unobserve(entrada.target);
         }
@@ -487,10 +492,17 @@ function iniciarMaquinaEscribir() {
   const texto = parrafo.getAttribute('data-texto-maquina') || '';
   const cursor = parrafo.querySelector('.marketing-hero__cursor, .asesoria-hero__cursor');
 
+  parrafo.setAttribute('data-maquina-lista', '');
+
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     parrafo.textContent = texto;
     return;
   }
+
+  /* El texto viene escrito en el HTML (para buscadores y sin JS): se vacía
+     y se vuelve a escribir letra a letra */
+  parrafo.textContent = '';
+  if (cursor) parrafo.appendChild(cursor);
 
   const VELOCIDAD_MS = 38;
   const RETRASO_INICIAL_MS = 600;
