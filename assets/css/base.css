@@ -642,7 +642,8 @@ p {
   border-radius: var(--r-pildora);
   background: var(--blanco);
   font-family: var(--f-cuerpo);
-  font-size: var(--menor);
+  /* 16px como mínimo: con menos, iOS hace zoom al enfocar el campo */
+  font-size: 16px;
   color: var(--gris-tinta);
   line-height: 1.35;
 }
