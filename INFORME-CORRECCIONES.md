@@ -235,3 +235,12 @@ Verificación hecha con Chrome y Playwright, en local sobre Apache con HTTPS y e
 - **Casilla de privacidad de 20 px o más** para tocarla mejor en móvil.
 - **`sitemap.xml`:** actualizar `lastmod` el día del despliegue.
 - **Repositorios públicos.** Este repo y `juanrome09/a360-rediseno` son públicos. No contienen secretos más allá de la clave de Web3Forms, que ya es visible en la web, pero conviene restringirla por dominio (sección 4).
+
+---
+
+## 7. Ajustes posteriores a la auditoría (2026-11-08)
+
+| Cambio | Problema | Causa raíz | Solución | Archivos | Commit | Verificación |
+| --- | --- | --- | --- | --- | --- | --- |
+| Footer de Asesoría | Bloque de cierre + footer demasiado alto, con un gran espacio vacío | `.cierre-pie` forzado a `min-height:100dvh` con `justify-content:space-between`: hueco de 99 px (768), 245 px (1920×1200), 418 px (1024×1366) y 485 px (2560) | Se quita la altura mínima y el bloque mide lo que su contenido, como el de Marketing | `assets/css/asesoria.css` | b06ebb6 | Hueco de 0 px en todos los anchos; bloque de 925–955 px (Marketing: 978–1005) |
+| Carrusel «Nuestro trabajo» (/marketing/, móvil) | Al deslizar en vertical sobre las fotos se movía el carrusel por dentro y no la página | El halo `.trabajo-mk__pieza::before` (`inset:-29%`) desbordaba cada pieza; con `overflow-x:auto` el eje Y pasa a `auto` y el carrusel tenía scroll vertical propio (además de 41–75 px de scroll horizontal sobrante) | Mismo arreglo que en Servicios (`.servicio-panel-mk`): `overflow:hidden` en cada pieza dentro del carrusel móvil; `.reveal` pasa del contenedor a cada pieza | `assets/css/marketing.css`, `marketing/index.html` | 5b6e161 | Gesto vertical de 200 px: la página se mueve 201 px y el carrusel 0 (antes 0 y 65); swipe horizontal con snap correcto; escritorio sin cambios (0,1–0,9 %) |
