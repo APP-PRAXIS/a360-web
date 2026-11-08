@@ -1,0 +1,989 @@
+/* Fuentes */
+@font-face {
+  font-family: 'Kumbh Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../fonts/kumbh-sans-var.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/lato-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/lato-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/lato-bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Staatliches';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/staatliches-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Poetsen One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/poetsen-one-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/inter-var.woff2') format('woff2');
+}
+
+/* Variables globales (colores, tipografía, espaciados) */
+:root {
+
+  --naranja: #E95117;
+  /* Variante de --naranja para texto claro pequeño/negrita sobre fondo naranja
+     (botones, badges): el naranja de marca solo da 3.71:1 en esos casos,
+     por debajo del 4.5:1 de WCAG AA. No sustituye a --naranja en el resto
+     de usos (iconos, bordes, acentos grandes), donde el contraste no aplica. */
+  --naranja-texto: #C43F0F;
+  --naranja-texto-hover: #A8360C;
+  --azul-acero: #1E6FA0;
+  --azul-hondo: #0B3A54;
+  --negro: #000000;
+
+  --rojo-vivo: #F7374F;
+  --vino: #88304E;
+  --vino-hondo: #522546;
+  --gris-tinta: #404040;
+  --gris-claro: #E8E7E7;
+  --lino: #F3EEE7;
+
+  --turquesa: #51BCBD;
+  --verde: #8DC04A;
+  --verde-mar: #1BA074;
+  --violeta: #A13C8F;
+  --dorado: #D1970F;
+  --dorado-oscuro: #A07C32;
+
+  --lavado-azul: #E4EEF4;
+  --lavado-hondo: #E7EBEE;
+  --lavado-vino: #F3EAED;
+  --lavado-naranja: #FDEEE8;
+
+  --whatsapp: #25D366;
+  --whatsapp-oscuro: #075E54;
+
+  --blanco: #FFFFFF;
+
+  --f-titulos: 'Kumbh Sans', system-ui, sans-serif;
+  --f-cuerpo: 'Lato', system-ui, sans-serif;
+  --f-cartel: 'Staatliches', system-ui, sans-serif;
+  --f-versatil: 'Poetsen One', system-ui, sans-serif;
+
+  --display-xl: clamp(64px, 12vw, 168px);
+  --display: clamp(48px, 10vw, 140px);
+  --titulo-1: clamp(34px, 4.5vw, 60px);
+  --titulo-2: clamp(26px, 3vw, 38px);
+  --titulo-3: 22px;
+  --cuerpo-lg: 19px;
+  --cuerpo: 17px;
+  --menor: 15px;
+
+  --medida-max: 68ch;
+
+  --r-pildora: 999px;
+  --r-panel: 24px;
+  --r-medio: 12px;
+  --r-nada: 0;
+  --rotacion: 8deg;
+
+  --e-1: 8px;
+  --e-2: 16px;
+  --e-3: 24px;
+  --e-4: 32px;
+  --e-5: 48px;
+  --e-6: 64px;
+  --e-7: 96px;
+  --e-8: 128px;
+
+  --ancho-max: 1200px;
+  --canal-movil: 24px;
+  --canal-escritorio: 48px;
+
+  /* Alto real de la barra flotante del nav en móvil (10px + logo 44px + 10px
+     + 2px de borde). Lo usa el menú desplegable para anclarse justo debajo
+     sin taparla. Si cambia el alto del logo móvil, cambia este valor. */
+  --alto-nav-movil: 66px;
+
+  --dur-reveal: 520ms;
+  --curva-reveal: cubic-bezier(.2, .7, .2, 1);
+  --dur-hover: 140ms;
+  --dur-panel: 180ms;
+}
+
+/* Reset y elementos base */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Scroll suave para los enlaces de ancla (#contacto, #fiscal, chips de
+     servicios...). El bloque de prefers-reduced-motion del final del archivo
+     lo devuelve a `auto` para quien pide menos movimiento. */
+  scroll-behavior: smooth;
+}
+
+body {
+
+  overflow-x: hidden;
+  margin: 0;
+  background: var(--blanco);
+  color: var(--gris-tinta);
+  font-family: var(--f-cuerpo);
+  font-size: var(--cuerpo);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, svg { display: block; max-width: 100%; }
+img { height: auto; }
+
+h1, h2, h3, h4, p, figure, blockquote { margin: 0; }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--f-titulos);
+  font-weight: 700;
+  color: var(--azul-hondo);
+  /* Red de seguridad para pantallas estrechas: si una palabra larga no cabe
+     en el ancho disponible, que la rompa ella sola en vez de desbordar la
+     página (overflow-x). No afecta al resto de títulos, que ya caben. */
+  overflow-wrap: break-word;
+}
+
+h1 { font-size: var(--titulo-1); line-height: 1.12; letter-spacing: -.02em; }
+h2 { font-size: var(--titulo-2); line-height: 1.22; letter-spacing: -.015em; }
+h3 { font-size: var(--titulo-3); line-height: 1.3; }
+
+p {
+  max-width: var(--medida-max);
+  text-align: left;
+}
+
+.cuerpo-lg { font-size: var(--cuerpo-lg); line-height: 1.6; }
+.menor { font-size: var(--menor); line-height: 1.5; }
+
+:focus-visible {
+  outline: 2px solid var(--azul-acero);
+  outline-offset: 3px;
+}
+
+.saltar-contenido {
+  position: absolute;
+  left: var(--e-2);
+  top: -100px;
+  background: var(--azul-hondo);
+  color: var(--blanco);
+  padding: var(--e-2) var(--e-3);
+  border-radius: var(--r-medio);
+  z-index: 200;
+  transition: top var(--dur-hover) ease;
+}
+.saltar-contenido:focus { top: var(--e-2); }
+
+.sr-solo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Toggle Asesoría / Marketing (nav) */
+.cambio-mundo-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--r-pildora);
+  background: var(--gris-claro);
+  flex-shrink: 0;
+}
+.cambio-mundo-toggle .cambio-mundo-toggle__opcion {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: var(--r-pildora);
+  font-family: var(--f-cuerpo);
+  font-weight: 600;
+  font-size: var(--menor);
+  color: var(--gris-tinta);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--dur-hover) ease, color var(--dur-hover) ease;
+}
+.cambio-mundo-toggle .cambio-mundo-toggle__opcion:not([aria-current="true"]):hover,
+.cambio-mundo-toggle .cambio-mundo-toggle__opcion:not([aria-current="true"]):focus-visible {
+  background: rgba(0, 0, 0, .08);
+}
+.cambio-mundo-toggle .cambio-mundo-toggle__opcion--asesoria[aria-current="true"] {
+  background: var(--azul-acero);
+  color: var(--blanco);
+}
+.cambio-mundo-toggle .cambio-mundo-toggle__opcion--marketing[aria-current="true"] {
+  background: var(--vino);
+  color: var(--blanco);
+}
+@media (max-width: 480px) {
+  .cambio-mundo-toggle__opcion { padding: 8px 10px; font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Utilidades de layout */
+.contenedor {
+  max-width: var(--ancho-max);
+  margin-inline: auto;
+  padding-inline: var(--canal-movil);
+}
+
+@media (min-width: 1024px) {
+  .contenedor { padding-inline: var(--canal-escritorio); }
+}
+
+.banda { padding-block: var(--e-6); }
+@media (min-width: 1024px) { .banda { padding-block: var(--e-7); } }
+
+.banda-gris { background: var(--gris-claro); }
+.banda-blanca { background: var(--blanco); }
+
+/* Animación de entrada al hacer scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.en-vista {
+    animation: reveal-entrada var(--dur-reveal) var(--curva-reveal) both;
+    animation-delay: calc(var(--indice, 0) * 90ms);
+  }
+}
+@keyframes reveal-entrada {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* Botones */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-1);
+  border-radius: var(--r-pildora);
+  padding: 14px 28px;
+  font-family: var(--f-cuerpo);
+  font-weight: 700;
+  font-size: var(--cuerpo);
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color var(--dur-hover) ease, color var(--dur-hover) ease, border-color var(--dur-hover) ease;
+}
+
+.boton-primario {
+  background: var(--naranja-texto);
+  color: var(--blanco);
+  border: 1px solid var(--naranja-texto);
+}
+.boton-primario:hover, .boton-primario:focus-visible {
+  background: var(--naranja-texto-hover);
+  border-color: var(--naranja-texto-hover);
+}
+
+.boton-oscuro {
+  background: var(--azul-hondo);
+  color: var(--blanco);
+  border: 1px solid var(--azul-hondo);
+}
+.boton-oscuro:hover, .boton-oscuro:focus-visible {
+  background: #082a3d;
+  border-color: #082a3d;
+}
+
+/* Cabecera simple (legal.html) */
+.cabecera {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 100;
+  background: var(--blanco);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-panel) ease;
+}
+
+.cabecera.compacta {
+  border-bottom-color: var(--gris-claro);
+}
+
+/* Menú móvil: panel desplegable compacto anclado justo debajo de la barra
+   flotante del nav. No ocupa toda la pantalla ni se comporta como una página
+   aparte; si el contenido no cabe, hace scroll dentro del propio panel. */
+.menu-movil {
+  position: fixed;
+  inset-block-start: calc(var(--e-2) + var(--alto-nav-movil) + 8px);
+  inset-block-end: auto;
+  inset-inline: var(--canal-movil);
+  z-index: 200;
+  width: auto;
+  max-width: 380px;
+  margin-inline: auto;
+  /* Nunca más alto que el espacio libre bajo el nav */
+  max-height: calc(100svh - var(--alto-nav-movil) - var(--e-2) - var(--e-5));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--blanco);
+  border: 1px solid var(--gris-claro);
+  border-radius: var(--r-panel);
+  box-shadow: 0 24px 48px -16px rgba(0, 0, 0, .28);
+  display: flex;
+  flex-direction: column;
+  padding: var(--e-1) var(--e-3) var(--e-3);
+  transform: translateY(-10px) scale(.97);
+  transform-origin: top center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.menu-movil[data-abierto="true"] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Solo queda el botón de cerrar, alineado a la derecha y discreto: la
+   cabecera ya no tiene que sostener un logo como cuando era pantalla completa */
+.menu-movil__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 32px;
+}
+
+.menu-movil__cerrar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-inline-end: calc(var(--e-1) * -1);
+}
+.menu-movil__cerrar svg { width: 18px; height: 18px; }
+
+/* Pestañas centradas, una debajo de otra y con área de pulsación amplia */
+.menu-movil__nav {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  text-align: center;
+}
+.menu-movil__nav a {
+  font-family: var(--f-titulos);
+  font-weight: 700;
+  font-size: var(--cuerpo-lg);
+  color: var(--azul-hondo);
+}
+.menu-movil__nav > a {
+  padding-block: 12px;
+  border-radius: var(--r-medio);
+  text-align: center;
+}
+/* Separador fino entre pestañas de primer nivel, para que se lean como lista */
+.menu-movil__nav > a + a,
+.menu-movil__nav > a + .desplegable,
+.menu-movil__nav > .desplegable + a,
+.menu-movil__nav > .desplegable + .desplegable {
+  border-top: 1px solid var(--gris-claro);
+}
+/* El selector Asesoría/Marketing cierra el panel, centrado y con aire */
+.menu-movil__nav .cambio-mundo-toggle {
+  align-self: center;
+  margin-top: var(--e-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-movil { transition: none; }
+}
+
+/* Nav en móvil: barra algo más baja y botones más contenidos, para que el
+   logo, la búsqueda y la hamburguesa respiren en pantallas estrechas.
+   Va prefijado con body.* para ganar a las reglas de cada hoja de sitio. */
+@media (max-width: 899px) {
+  body.asesoria .nav-flotante,
+  body.marketing .nav-flotante {
+    padding: 10px var(--e-2);
+    gap: var(--e-2);
+  }
+  body.asesoria .nav-flotante__derecha,
+  body.marketing .nav-flotante__derecha { gap: 10px; }
+
+  body.asesoria .nav-flotante__logo img,
+  body.marketing .nav-flotante__logo img,
+  body.marketing .nav-flotante__logo svg { height: 44px; }
+
+  body.asesoria .nav-flotante__movil-abrir,
+  body.marketing .nav-flotante__movil-abrir,
+  body.asesoria .busqueda-boton,
+  body.marketing .busqueda-boton {
+    width: 40px;
+    height: 40px;
+  }
+  body.asesoria .nav-flotante__movil-abrir svg,
+  body.marketing .nav-flotante__movil-abrir svg { width: 18px; height: 18px; }
+}
+
+/* Botón flotante de WhatsApp */
+.whatsapp-flotante {
+  position: fixed;
+  inset-block-end: var(--e-2);
+  inset-inline-end: var(--e-2);
+  z-index: 150;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--whatsapp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, .35);
+  transition: transform var(--dur-hover) ease, box-shadow var(--dur-hover) ease;
+}
+.whatsapp-flotante svg { width: 34px; height: 34px; position: relative; z-index: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .whatsapp-flotante:hover { transform: scale(1.06); box-shadow: 0 10px 28px -6px rgba(0, 0, 0, .4); }
+}
+.whatsapp-flotante:focus-visible { outline: 3px solid var(--whatsapp-oscuro); outline-offset: 3px; }
+
+/* Luz verde que "respira" detrás del botón; el botón en sí no se mueve */
+.whatsapp-flotante::before {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  z-index: 0;
+  border-radius: 50%;
+  background: var(--whatsapp);
+  filter: blur(13px);
+  opacity: .35;
+  animation: whatsapp-respirar 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes whatsapp-respirar {
+  0%, 100% { opacity: .16; transform: scale(.96); }
+  50% { opacity: .3; transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-flotante::before { animation: none; opacity: .4; }
+}
+
+/* Mini chat de WhatsApp (se abre al pulsar el botón flotante) */
+.whatsapp-chat {
+  position: fixed;
+  inset-block-end: calc(68px + var(--e-2) + var(--e-2));
+  inset-inline-end: var(--e-2);
+  z-index: 150;
+  width: 336px;
+  max-width: calc(100vw - (var(--e-2) * 2));
+  max-height: min(440px, calc(100vh - 68px - (var(--e-2) * 4)));
+  display: flex;
+  flex-direction: column;
+  background: var(--blanco);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 56px -16px rgba(0, 0, 0, .4);
+  opacity: 0;
+  transform: translateY(16px) scale(.97);
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+}
+.whatsapp-chat[data-abierto="true"] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-chat { transition: opacity .15s ease; transform: none; }
+}
+
+.whatsapp-chat__cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+  padding: var(--e-2) var(--e-3);
+  background: var(--whatsapp-oscuro);
+  color: var(--blanco);
+}
+.whatsapp-chat__avatar {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.whatsapp-chat__avatar svg { width: 22px; height: 22px; }
+.whatsapp-chat__info { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+.whatsapp-chat__info strong { font-size: var(--menor); }
+.whatsapp-chat__info small { font-size: 12px; opacity: .8; }
+.whatsapp-chat__cerrar {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--dur-hover) ease;
+}
+.whatsapp-chat__cerrar svg { width: 16px; height: 16px; }
+.whatsapp-chat__cerrar:hover, .whatsapp-chat__cerrar:focus-visible { background: rgba(255, 255, 255, .18); }
+
+.whatsapp-chat__cuerpo {
+  flex: 1;
+  min-height: 80px;
+  padding: var(--e-3);
+  background: #E9E3DA;
+  overflow-y: auto;
+}
+.whatsapp-chat__burbuja {
+  max-width: 86%;
+  padding: 10px 14px;
+  background: var(--blanco);
+  border-radius: 4px 14px 14px 14px;
+  font-size: var(--menor);
+  line-height: 1.4;
+  color: var(--gris-tinta);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+}
+
+.whatsapp-chat__compositor {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 8px;
+  background: var(--gris-claro);
+  border-top: 1px solid rgba(0, 0, 0, .06);
+}
+.whatsapp-chat__campo {
+  flex: 1;
+  resize: none;
+  max-height: 96px;
+  padding: 9px 14px;
+  border: none;
+  border-radius: var(--r-pildora);
+  background: var(--blanco);
+  font-family: var(--f-cuerpo);
+  font-size: var(--menor);
+  color: var(--gris-tinta);
+  line-height: 1.35;
+}
+.whatsapp-chat__campo:focus-visible { outline: 2px solid var(--whatsapp-oscuro); outline-offset: 1px; }
+.whatsapp-chat__enviar {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--whatsapp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--dur-hover) ease;
+}
+.whatsapp-chat__enviar svg { width: 18px; height: 18px; }
+.whatsapp-chat__enviar:hover, .whatsapp-chat__enviar:focus-visible { background: var(--whatsapp-oscuro); }
+
+/* Acordeón (FAQ) */
+.acordeon__item {
+  border-top: 1px solid var(--gris-claro);
+}
+.acordeon__item:last-child { border-bottom: 1px solid var(--gris-claro); }
+
+.acordeon__pregunta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  padding-block: var(--e-3);
+  text-align: left;
+  font-family: var(--f-titulos);
+  font-weight: 700;
+  font-size: var(--titulo-3);
+  color: var(--azul-hondo);
+}
+
+.acordeon__respuesta {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 220ms ease;
+}
+.acordeon__respuesta__interior {
+  padding-block-end: var(--e-3);
+  font-family: var(--f-cuerpo);
+  color: var(--gris-tinta);
+}
+
+/* Formulario de contacto */
+.campo { display: flex; flex-direction: column; gap: 6px; margin-bottom: var(--e-3); }
+
+.campo label {
+  font-family: var(--f-cuerpo);
+  font-weight: 700;
+  font-size: var(--menor);
+  color: var(--azul-hondo);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  /* appearance:none desactiva el estilo nativo de iOS/Android (sombra
+     interior, esquinas y tipografía del sistema en los select), que era lo
+     que hacía que en móvil los campos y sus placeholders no se vieran igual
+     que en escritorio. */
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid var(--gris-claro);
+  border-radius: var(--r-medio);
+  padding: 12px 16px;
+  /* Tipografía y métrica explícitas (no heredadas) para que el render sea el
+     mismo en los dos tamaños. 17px además evita el zoom automático de iOS. */
+  font-family: var(--f-cuerpo);
+  font-size: var(--cuerpo);
+  font-weight: 400;
+  line-height: 1.4;
+  background: var(--blanco);
+  background-clip: padding-box;
+  color: var(--gris-tinta);
+}
+.campo input:focus-visible,
+.campo select:focus-visible,
+.campo textarea:focus-visible {
+  border-color: var(--azul-acero);
+}
+
+/* Placeholders: mismo estilo, tipografía y opacidad en móvil y en escritorio.
+   Safari aplica por su cuenta una opacidad distinta, así que se fija a mano. */
+.campo input::placeholder,
+.campo textarea::placeholder,
+.busqueda-panel__input::placeholder {
+  font-family: var(--f-cuerpo);
+  font-size: inherit;
+  font-weight: 400;
+  line-height: inherit;
+  color: var(--gris-tinta);
+  opacity: .55;
+}
+/* El select vacío hace de placeholder: mismo tratamiento que los input */
+.campo select:invalid,
+.campo select option[value=""] {
+  color: rgba(64, 64, 64, .55);
+}
+
+/* Al quitar el estilo nativo hay que volver a dibujar la flecha del select */
+.campo select {
+  padding-inline-end: var(--e-5);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%23404040' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--e-2) center;
+  background-size: 14px 14px;
+}
+
+.campo textarea { resize: vertical; min-height: 120px; }
+
+.campo__error {
+  font-size: var(--menor);
+  color: var(--rojo-vivo);
+  display: none;
+}
+.campo.con-error input,
+.campo.con-error select,
+.campo.con-error textarea {
+  border-color: var(--rojo-vivo);
+}
+.campo.con-error .campo__error { display: block; }
+
+.campo-consentimiento {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: var(--e-3);
+}
+.campo-consentimiento input { margin-top: 4px; }
+.campo-consentimiento label { font-size: var(--menor); }
+
+.formulario__nota {
+  margin-block: var(--e-2) var(--e-3);
+  font-weight: 500;
+}
+
+.formulario__estado {
+  margin-top: var(--e-2);
+  padding: var(--e-2) var(--e-3);
+  border-radius: var(--r-medio);
+  font-size: var(--menor);
+  display: none;
+}
+.formulario__estado[data-visible="true"] { display: block; }
+.formulario__estado[data-tipo="exito"] { background: rgba(27, 160, 116, .12); color: var(--verde-mar); }
+.formulario__estado[data-tipo="error"] { background: var(--lavado-naranja); color: var(--vino-hondo); }
+
+.campo-trampa {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Pie de página */
+.pie {
+  position: relative;
+  color: var(--blanco);
+}
+.pie__interior {
+  display: grid;
+  gap: var(--e-5);
+  padding-block: var(--e-6);
+}
+@media (min-width: 768px) {
+  .pie__interior { grid-template-columns: 1.2fr 1fr 1fr; }
+}
+.pie h3 {
+  color: var(--blanco);
+  font-size: var(--menor);
+  text-transform: none;
+  margin-bottom: var(--e-2);
+}
+.pie a, .pie address { font-size: var(--menor); opacity: .92; }
+.pie address { font-style: normal; }
+.pie__nav { display: flex; flex-direction: column; gap: 10px; }
+.pie__redes { display: flex; gap: var(--e-2); margin-top: var(--e-2); }
+.pie__redes a { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; }
+.pie__legal {
+  border-top: 1px solid rgba(255,255,255,.2);
+  padding-block: var(--e-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2);
+  justify-content: space-between;
+  font-size: var(--menor);
+  opacity: .85;
+}
+
+/* Variante compacta: para páginas sin bloque de cierre antes del footer,
+   donde no hace falta un pie tan alto */
+.pie--compacto .pie__interior { padding-block: var(--e-4); gap: var(--e-4); }
+.pie--compacto .pie__legal { padding-block: var(--e-2); }
+
+/* Nav: envoltorio del lado derecho, contiene los enlaces (.nav-flotante__nav),
+   el botón de búsqueda, el selector de mundo y el botón de menú móvil, todos
+   juntos. .nav-flotante solo tiene 2 hijos (logo y este envoltorio) con
+   justify-content:space-between. */
+.nav-flotante__derecha {
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+}
+/* Un poco más de aire entre "Contacto" y el botón de búsqueda que el gap
+   general de .nav-flotante__derecha, sin agrandar la barra. */
+@media (min-width: 900px) {
+  .busqueda-boton { margin-inline-start: var(--e-2); }
+}
+/* Copia del selector Asesoría/Marketing que vive junto a la búsqueda,
+   fuera de .nav-flotante__nav: se oculta en el mismo punto de corte
+   (900px) para no amontonar el pie de página móvil, donde el cambio de
+   mundo ya está disponible dentro del menú a pantalla completa. */
+.cambio-mundo-toggle--nav { display: none; }
+@media (min-width: 900px) {
+  .cambio-mundo-toggle--nav { display: inline-flex; }
+}
+.busqueda-boton {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color var(--dur-hover) ease;
+}
+.busqueda-boton svg { stroke: var(--blanco); }
+
+/* Búsqueda: overlay a pantalla completa con un panel centrado tipo "command palette" */
+.busqueda-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(10, 10, 10, .55);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 20px 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease;
+}
+.busqueda-overlay[data-abierto="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+.busqueda-panel {
+  width: 100%;
+  max-width: 560px;
+  background: var(--blanco);
+  border-radius: var(--r-panel);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .5);
+  overflow: hidden;
+  transform: translateY(-12px);
+  transition: transform .2s ease;
+}
+.busqueda-overlay[data-abierto="true"] .busqueda-panel { transform: translateY(0); }
+.busqueda-panel__cabecera {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--gris-claro);
+}
+.busqueda-panel__icono { flex-shrink: 0; stroke: var(--gris-tinta); opacity: .5; }
+.busqueda-panel__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font: inherit;
+  font-size: 17px;
+  color: var(--gris-tinta);
+  background: none;
+}
+.busqueda-panel__input::-webkit-search-cancel-button { display: none; }
+.busqueda-panel__cerrar {
+  flex-shrink: 0;
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--gris-tinta);
+  opacity: .6;
+  transition: background-color var(--dur-hover) ease, opacity var(--dur-hover) ease;
+}
+.busqueda-panel__cerrar svg { stroke: currentColor; }
+.busqueda-panel__cerrar:hover, .busqueda-panel__cerrar:focus-visible {
+  background: var(--gris-claro);
+  opacity: 1;
+}
+.busqueda-panel__resultados {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 8px;
+}
+.busqueda-panel__resultados:empty { padding: 0; }
+.busqueda-panel__resultado a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--gris-tinta);
+}
+.busqueda-panel__resultado a:hover,
+.busqueda-panel__resultado a:focus-visible,
+.busqueda-panel__resultado[aria-selected="true"] a { background: var(--gris-claro); }
+.busqueda-panel__resultado-titulo { font-weight: 700; }
+.busqueda-panel__resultado-titulo mark {
+  background: none;
+  color: var(--naranja-texto);
+  font-weight: 700;
+}
+.busqueda-panel__vacio {
+  padding: 24px 20px;
+  text-align: center;
+  color: var(--gris-tinta);
+  opacity: .6;
+}
+@media (prefers-reduced-motion: reduce) {
+  .busqueda-overlay, .busqueda-panel { transition: none; }
+}
+
+/* Placeholder de imagen (contenido pendiente) */
+.placeholder-img {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--e-3);
+  color: var(--azul-hondo);
+  font-family: var(--f-cuerpo);
+  font-weight: 700;
+  font-size: var(--menor);
+  border: 1px dashed rgba(11, 58, 84, .35);
+}
+
+/* Transición de página al cambiar entre Asesoría y Marketing */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-group(cambio-mundo) {
+  animation-duration: .5s;
+  animation-timing-function: cubic-bezier(.3, .1, .2, 1);
+}
