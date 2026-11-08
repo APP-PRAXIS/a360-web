@@ -7,6 +7,9 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} !^www\.asesores360\.com$ [NC]
 RewriteRule ^(.*)$ https://www.asesores360.com/$1 [L,R=301,NE]
+# /index.html y /carpeta/index.html redirigen a la URL canónica con barra
+RewriteCond %{THE_REQUEST} \s/((?:[^\s?]*/)?)index\.html[\s?]
+RewriteRule ^ https://www.asesores360.com/%1 [L,R=301,NE]
 RewriteCond %{REQUEST_URI} !^/\.well-known/
 RewriteRule (^|/)\. - [F,L]
 RewriteRule \.(md|py|log|sql|zip)$ - [F,L]
