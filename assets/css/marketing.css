@@ -865,6 +865,16 @@ body.marketing main > section:has(> .mk-fondo-decorativo) > .contenedor {
      de una a otra la imagen visible "sube y baja" de sitio. Se fuerza la
      misma proporción cuadrada en las tres para que queden fijas en vertical. */
   .trabajo-mk > .trabajo-mk__pieza { aspect-ratio: 1 / 1 !important; }
+  /* Mismo arreglo que .servicio-panel-mk (overflow:hidden): el halo
+     ::before (inset:-29%) se salía de cada pieza y, como el carrusel tiene
+     overflow-x:auto (lo que convierte overflow-y en auto), le daba scroll
+     vertical propio. El gesto vertical del dedo movía el carrusel por dentro
+     en vez de la página y además sobraba scroll horizontal al final. Se
+     contiene el halo dentro de cada pieza, como en Servicios. */
+  .trabajo-mk > .trabajo-mk__pieza {
+    overflow: hidden;
+    border-radius: var(--mk-r-imagen);
+  }
 }
 
 /* Inicio: Cómo enfocamos cada proyecto */
