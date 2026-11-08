@@ -29,6 +29,8 @@
   .legal-nav-ancla { display:flex; gap: var(--e-3); flex-wrap:wrap; margin-block: var(--e-4); }
   .legal-nav-ancla a { font-weight:700; color: var(--naranja-texto); text-decoration: underline; text-underline-offset: 2px; }
   .legal-seccion { padding-block: var(--e-5); border-top: 1px solid var(--gris-claro); }
+  /* Al saltar a #privacidad o #cookies el título no queda bajo la cabecera fija */
+  .legal-seccion { scroll-margin-top: 104px; }
   .legal-seccion:first-of-type { border-top: 0; }
   .legal-seccion h2 { margin-bottom: var(--e-2); }
   .legal-seccion h3 { margin-top: var(--e-3); margin-bottom: var(--e-1); }
