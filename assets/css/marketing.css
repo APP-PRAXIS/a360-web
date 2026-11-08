@@ -1106,6 +1106,11 @@ body.marketing .cierre-marketing__linea {
    4.5:1 con el texto claro de este círculo a 13px. Se corrige solo aquí
    (sin tocar --turquesa, que se sigue usando en el resto del sitio). */
 .mk-servicios-chips a:nth-child(1) span { background: #2F7677; }
+/* Mismo ajuste para lima, verde mar y dorado: tono de marca oscurecido lo
+   justo para 4.5:1 con el número claro */
+.mk-servicios-chips a:nth-child(2) span { background: #537428; }
+.mk-servicios-chips a:nth-child(3) span { background: #147958; }
+.mk-servicios-chips a:nth-child(5) span { background: #8A630A; }
 
 /* Servicios.html: bloques de detalle */
 .servicio-bloque-mk {
@@ -1523,7 +1528,7 @@ body.marketing main > section.mk-valores-seccion .mk-valores {
   padding: 12px 22px 12px 16px;
   border-radius: var(--r-pildora);
   background: var(--whatsapp);
-  color: #fff;
+  color: var(--whatsapp-texto);
   font-family: var(--f-cuerpo);
   font-weight: 500;
   font-size: var(--menor);
@@ -1531,7 +1536,7 @@ body.marketing main > section.mk-valores-seccion .mk-valores {
   transition: filter var(--dur-hover) ease;
 }
 .mk-boton-whatsapp:hover, .mk-boton-whatsapp:focus-visible { filter: brightness(1.08); }
-.mk-boton-whatsapp svg { width: 22px; height: 22px; flex-shrink: 0; fill: #fff; }
+.mk-boton-whatsapp svg { width: 22px; height: 22px; flex-shrink: 0; fill: currentColor; }
 
 .contacto-mapa h2 { margin-bottom: var(--e-2); }
 .contacto-mapa__marco {

@@ -70,7 +70,7 @@ body.asesoria .nav-flotante--oscura .nav-flotante__nav > a[aria-current="page"] 
 .nav-flotante__nav a:hover, .nav-flotante__nav a:focus-visible { background: var(--gris-claro); color: var(--azul-acero); }
 .nav-flotante__nav a[aria-current="page"] {
   background: rgba(var(--azul-acero-rgb), .14);
-  color: var(--azul-acero);
+  color: var(--azul-acero-texto);
 }
 /* El panel del menú móvil hereda el color de la barra del nav, para que se
    lea como una prolongación de ella y no como una capa ajena */
@@ -878,7 +878,7 @@ body.asesoria .nav-flotante--oscura .desplegable__panel a:focus-visible {
   display: inline-flex;
   align-items: center;
 }
-.contacto-panel__whatsapp svg { width: 20px; height: 20px; flex-shrink: 0; fill: #fff; }
+.contacto-panel__whatsapp svg { width: 20px; height: 20px; flex-shrink: 0; fill: currentColor; }
 .contacto-panel .boton-oscuro { transition: filter var(--dur-hover) ease; }
 @media (max-width: 480px) {
   .contacto-panel__whatsapp { white-space: normal; text-align: center; width: 100%; }
@@ -982,7 +982,7 @@ body.asesoria .boton-primario:focus-visible {
 body.asesoria .boton-oscuro {
   background: var(--whatsapp);
   border-color: var(--whatsapp);
-  color: #fff;
+  color: var(--whatsapp-texto);
 }
 body.asesoria .boton-oscuro:hover,
 body.asesoria .boton-oscuro:focus-visible {
@@ -1085,7 +1085,7 @@ body.asesoria .contacto-panel h3 { color: #fff; }
 body.asesoria .contacto-panel .boton-oscuro {
   background: var(--whatsapp);
   border-color: var(--whatsapp);
-  color: #fff;
+  color: var(--whatsapp-texto);
 }
 body.asesoria .contacto-panel .boton-oscuro:hover,
 body.asesoria .contacto-panel .boton-oscuro:focus-visible {
@@ -1366,7 +1366,7 @@ body.asesoria main > section.servicios-hero:first-child {
   font-size: 13px;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--naranja);
+  color: var(--naranja-texto);
   margin-bottom: var(--e-2);
 }
 .trato-directo__lista {

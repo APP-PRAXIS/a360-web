@@ -62,10 +62,13 @@
   /* Variante de --naranja para texto claro pequeño/negrita sobre fondo naranja
      (botones, badges): el naranja de marca solo da 3.71:1 en esos casos,
      por debajo del 4.5:1 de WCAG AA. No sustituye a --naranja en el resto
-     de usos (iconos, bordes, acentos grandes), donde el contraste no aplica. */
+     de usos (iconos, bordes, acentos grandes), donde el contraste no aplica.
+     También sirve como color de texto naranja pequeño sobre blanco/gris. */
   --naranja-texto: #C43F0F;
   --naranja-texto-hover: #A8360C;
   --azul-acero: #1E6FA0;
+  /* --azul-acero oscurecido para texto pequeño sobre fondos grises (AA) */
+  --azul-acero-texto: #1B638F;
   --azul-hondo: #0B3A54;
   --negro: #000000;
 
@@ -90,6 +93,7 @@
 
   --whatsapp: #25D366;
   --whatsapp-oscuro: #075E54;
+  --whatsapp-texto: #0B3B2E;
 
   --blanco: #FFFFFF;
 
